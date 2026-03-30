@@ -2,6 +2,13 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 export default function Movie({ movie }) {
+
+  // Hàm xử lý khi link hình ảnh từ API bị die (lỗi 404 hoặc không tồn tại)
+  const handleImageError = (e) => {
+    // Thay thế bằng link ảnh "Coming Soon" hoặc ảnh mặc định của bạn
+    e.target.src = "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/0a/63/01/0a63013d-596a-73d8-5b12-426b38c22f0d/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg"; 
+  };
+
   return (
     <div className="group relative bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden shadow-lg hover:shadow-red-600/20 transition-all duration-300 flex flex-col h-full">
       {/* Hình ảnh phim với hiệu ứng Hover Zoom */}
