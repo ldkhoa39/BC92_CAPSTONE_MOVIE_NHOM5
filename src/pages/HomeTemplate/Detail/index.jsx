@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDetailMovie } from './slice';
+import LichChieuDetail from '../_components/LichChieuDetail';
 
 export default function Detail() {
     const dispatch = useDispatch();
@@ -124,23 +125,12 @@ export default function Detail() {
                                             {cumRap.tenCumRap}
                                         </h4>
 
-                                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                                            {/* SỬ DỤNG .MAP ĐỂ GÁN NÚT ĐẶT VÉ CHO TỪNG SUẤT CHIẾU */}
-                                            {cumRap.lichChieuPhim.map((lich) => (
-                                                <button
-                                                    key={lich.maLichChieu}
-                                                    onClick={() => handleBooking(lich.maLichChieu)}
-                                                    className="bg-zinc-800 hover:bg-red-600 border border-zinc-700 hover:border-red-500 text-white py-2 rounded-lg transition-all text-center font-mono group"
-                                                >
-                                                    <span className="text-xs block text-gray-400 group-hover:text-white">
-                                                        {new Date(lich.ngayChieuGioChieu).toLocaleDateString()}
-                                                    </span>
-                                                    <span className="text-lg font-bold">
-                                                        {new Date(lich.ngayChieuGioChieu).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                                    </span>
-                                                </button>
-                                            ))}
-                                        </div>
+                                        {/* Thay thế bằng Component đã chia theo ngày */}
+                                        <LichChieuDetail 
+                                            lichChieu={cumRap.lichChieuPhim} 
+                                            handleBooking={handleBooking} 
+                                        />
+                                        
                                         <hr className="mt-8 border-zinc-800" />
                                     </div>
                                 ))}
