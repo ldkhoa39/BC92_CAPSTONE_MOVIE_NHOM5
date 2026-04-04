@@ -42,7 +42,7 @@ export default function Header() {
               <NavLink to="/list-movie" className={navLinkClass}>Phim đang chiếu</NavLink>
             </li>
             <li>
-              <NavLink to="/about" className={navLinkClass}>Đặt vé</NavLink>
+              <NavLink to="/booking" className={navLinkClass}>Đặt vé</NavLink>
             </li>
             <li className="hidden md:block w-[1px] h-5 bg-zinc-700 mx-2"></li>
             <li>
