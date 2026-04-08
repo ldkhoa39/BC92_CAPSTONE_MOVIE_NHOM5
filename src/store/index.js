@@ -5,6 +5,9 @@ import authReducer from "./../pages/AdminTemplate/Auth/slice"
 import addUserReducer from './../pages/AdminTemplate/AddUser/slice';
 import checkoutReducer from '../pages/HomeTemplate/Checkout/slice'; 
 import bookingReducer from "../pages/HomeTemplate/Booking/slice"
+import loginReducer from "../pages/HomeTemplate/Login/slice"
+import registerReducer from "../pages/HomeTemplate/Register/slice"
+
 
 const store = configureStore({
     reducer: {
@@ -14,6 +17,8 @@ const store = configureStore({
         addUserReducer,
         checkoutReducer, 
         bookingReducer,
+        loginReducer,
+        registerReducer,
     },
 });
 

@@ -52,6 +52,13 @@ export default function Header() {
               >
                 ĐĂNG NHẬP
               </NavLink>
+
+              <NavLink 
+                to="/register" 
+                className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-900 font-bold rounded-lg text-sm px-5 py-2 ml-3 text-center transition-all"
+              >
+                ĐĂNG KÝ
+              </NavLink>
             </li>
           </ul>
         </div>

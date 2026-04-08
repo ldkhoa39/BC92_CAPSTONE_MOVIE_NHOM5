@@ -1,122 +1,87 @@
-import React from "react";
-import { useState } from "react";
-
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { fetchLogin } from "./slice";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { error, loading } = useSelector((state) => state.authReducer);
 
-  const[user,setUser] = useState({
-    taiKhoan: "",
-    matKhau: "",
-  });
+  const [user, setUser] = useState({ taiKhoan: "", matKhau: "" });
+  const [erros, setErros] = useState({ taiKhoan: "", matKhau: "" });
 
-  // state handle validation form
-  const [erros, setErros] = useState ({
-    taiKhoan: "",
-    matKhau: "",
-  });
+  const isDisableLogin = !user.taiKhoan || !user.matKhau || erros.taiKhoan || erros.matKhau;
 
-  // disable login button
-  const isDisableLogin = (!user.taiKhoan || !user.matKhau) || (erros.taiKhoan || erros.matKhau);
-
-  // hàm này xử dụng cho tất cả input trong form, khi có sự kiện onChange xảy ra thì hàm này sẽ được gọi
-  const handleOnChange = (event)=>{
-    /**
-     * event.target(input): đại diện cho thẻ input đang dược thao tác
-     */
-    // console.log(
-    //   event.target.name,
-    //   event.target.value
-    // );
-    const{name, value} = event.target;
-    setUser({
-      ...user, // keep cac gia tri cũ của user
-      [name]: value, // update lại value mới cho thuộc tính có tên là name
-    })
+  const handleOnChange = (event) => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
   };
 
-  // console.log(user);
-
-  const handleLogin = () =>{
-    // chặn hành động tải lại page khi submit form
-    event.preventDefault();
-    console.log("login",user);
-    
-  };
-
-
-  const validationForm= (event) =>{
-    const {name, value} = event.target;
-
-    let mess = value.trim() === "" ? `pls, full this ${name}` : "";
-
-    // validation taikhoan; mat khau
-    switch (name){
-      case "taiKhoan":
-        if(value.trim() && value.trim().length <4){
-          mess = "Tai khoan phai co it nhat 4 ky tu";
-        }
-        break;
-      case "matKhau":
-        const letter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!\s).{0,}$/;
-        if (value.trim() && !value.match(letter)) {
-          mess = "Mật khẩu phải chứa ít nhất 1 ký tự viết hoa, 1 ký tự viết thường, 1 chữ số và 1 ký tự đặc biệt";
-        }
-        break;
-      default:
-        break;
-    };
-
+  // Logic Login chuẩn: Chỉ check rỗng
+  const validationForm = (event) => {
+    const { name, value } = event.target;
     setErros({
       ...erros,
-      [name]: mess,
-    })
+      [name]: value.trim() === "" ? "Vui lòng điền đầy đủ thông tin <3" : "",
+    });
+  };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    dispatch(fetchLogin(user))
+      .unwrap()
+      .then(() => navigate("/")) 
+      .catch((err) => console.log(err));
   };
 
   return (
-    <div>
-      <form className="max-w-sm mx-auto " onSubmit={ handleLogin}>
-        <div className="mb-5">
-          <label
-            htmlFor="email"
-            className="block mb-2.5 text-sm font-medium text-heading"
-          >
-            Tai khoan
-          </label>
-          <input
-            onBlur={validationForm}
-            onChange={handleOnChange}
-            name="taiKhoan"
-            type="text"
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="nhap tai khoan"
-          />
-          <div className="text-danger text-sm">{erros.taiKhoan}</div>
+    <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
+      <div className="bg-zinc-900/80 backdrop-blur-xl p-8 rounded-3xl border border-zinc-800 shadow-2xl w-full max-w-md">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-2">Đăng Nhập</h2>
+          <p className="text-zinc-500 text-sm">Chào mừng bạn quay lại với hệ thống rạp chiếu</p>
         </div>
-        <div className="mb-5">
-          <label
-            htmlFor="password"
-            className="block mb-2.5 text-sm font-medium text-heading"
+
+        {error && (
+          <div className="mb-6 p-3 bg-red-600/20 border border-red-600/50 text-red-500 text-sm rounded-xl text-center">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleLogin} className="flex flex-col gap-6">
+          <div>
+            <label className="text-[10px] font-black text-red-600 uppercase mb-2 block tracking-widest">Tài Khoản</label>
+            <input
+              onBlur={validationForm} onChange={handleOnChange} name="taiKhoan" type="text" placeholder="Nhập tên tài khoản..."
+              className="w-full bg-zinc-800 text-white p-3 rounded-xl border border-zinc-700 focus:border-red-600 transition-all outline-none"
+            />
+            {erros.taiKhoan && <span className="text-red-500 text-xs italic mt-2 block">{erros.taiKhoan}</span>}
+          </div>
+
+          <div>
+            <label className="text-[10px] font-black text-red-600 uppercase mb-2 block tracking-widest">Mật Khẩu</label>
+            <input
+              onBlur={validationForm} onChange={handleOnChange} name="matKhau" type="password" placeholder="Nhập mật khẩu..."
+              className="w-full bg-zinc-800 text-white p-3 rounded-xl border border-zinc-700 focus:border-red-600 transition-all outline-none"
+            />
+            {erros.matKhau && <span className="text-red-500 text-xs italic mt-2 block">{erros.matKhau}</span>}
+          </div>
+
+          <button
+            disabled={isDisableLogin || loading} type="submit"
+            className={`w-full mt-2 px-10 py-4 font-black rounded-xl uppercase italic tracking-tighter transition-all ${
+              isDisableLogin || loading ? "bg-zinc-800 text-zinc-600" : "bg-red-600 text-white hover:bg-white hover:text-red-600 shadow-red-600/20 shadow-lg"
+            }`}
           >
-            Mat khau
-          </label>
-          <input
-            onBlur={validationForm}
-            onChange={handleOnChange}
-            name="matKhau"
-            type="password"
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="nhap mat khau"
-          />
-          <div className="text-danger text-sm">{erros.matKhau}</div>
-        </div>
-        <button
-          disabled={isDisableLogin}
-          type="submit"
-          className={`${isDisableLogin ? "disabled:opacity-50 text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none" : "text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"}`}
-        >
-          Login
-        </button>
-      </form>
+            {loading ? "Đang xử lý..." : "Đăng nhập ngay"}
+          </button>
+        </form>
+
+        <p className="text-center text-zinc-500 text-sm mt-6">
+          Chưa có tài khoản? <Link to="/register" className="text-red-500 hover:text-white font-bold transition-all">Đăng ký ngay</Link>
+        </p>
+      </div>
     </div>
   );
 }

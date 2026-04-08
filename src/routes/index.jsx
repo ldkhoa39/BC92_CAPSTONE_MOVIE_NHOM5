@@ -26,6 +26,10 @@ const routes = [
         element: lazy(() => import("../pages/HomeTemplate/Login")),
       },
       {
+        path: "register",
+        element: lazy(() => import("../pages/HomeTemplate/Register")),
+      },
+      {
         path: "booking",
         element: lazy(() => import("../pages/HomeTemplate/Booking") )
       },
