@@ -60,6 +60,14 @@ export default function Header() {
                 ĐĂNG KÝ
               </NavLink>
             </li>
+            <li>
+              <NavLink 
+                to="/admin" 
+                className="text-white bg-yellow-600 hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-yellow-900 font-bold rounded-lg text-sm px-5 py-2 text-center transition-all"
+              >
+                ADMIN
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
