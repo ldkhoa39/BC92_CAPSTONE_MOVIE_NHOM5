@@ -65,6 +65,14 @@ const routes = [
       path: "films/edit/:id",
       element: lazy(() => import("../pages/AdminTemplate/Films/Edit")),
     },
+    {
+      path: "user",
+      element: lazy(() => import("../pages/AdminTemplate/User")),
+    },
+    {
+      path: "user/edit/:taiKhoan",
+      element: lazy(() => import("../pages/AdminTemplate/User/Edit")),
+    }
   ],
 },
   {
