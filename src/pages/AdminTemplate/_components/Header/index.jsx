@@ -17,21 +17,21 @@ export default function AdminHeader() {
 
   return (
     <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 sticky top-0 z-50 shadow-sm">
-      {/* Bên trái: Breadcrumb hoặc Search nhanh */}
+      
       <div className="flex items-center space-x-2 text-gray-500">
         <span className="hover:text-blue-600 cursor-pointer" onClick={() => navigate('/admin/dashboard')}>Dashboard</span>
         <span>/</span>
         <span className="text-gray-800 font-medium">Quản lý hệ thống rạp chiếu BC92 movice</span>
       </div>
 
-      {/* Bên phải: Thông tin Admin */}
+     
       <div className="flex items-center space-x-4">
         <div className="text-right hidden sm:block">
           <p className="text-sm font-bold text-gray-700">{userAdmin?.hoTen || "Admin"}</p>
           <p className="text-xs text-green-600 font-medium">{userAdmin?.maLoaiNguoiDung}</p>
         </div>
         
-        {/* Avatar đơn giản */}
+        {/* Avatar*/}
         <div className="relative group">
           <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold cursor-pointer hover:bg-blue-600 transition shadow-inner">
             {userAdmin?.hoTen?.charAt(0) || "A"}

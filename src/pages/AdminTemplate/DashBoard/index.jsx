@@ -6,15 +6,14 @@ import {fetchListMovieAdmin} from "../Films/slice"
 export default function Dashboard() {
   const dispatch = useDispatch();
   
-  // 3. Lấy listMovie từ store
+  
   const { listMovie } = useSelector((state) => state.filmsReducer);
 
-  // 4. Lệnh "đi chợ": Cứ vào Dashboard là tự động gọi API lấy phim về
+  
   useEffect(() => {
     dispatch(fetchListMovieAdmin());
   }, []); 
 
-  // 5. Tính toán con số để hiển thị
   const total = listMovie?.length || 0;
   const currentlyShowing = listMovie?.filter(item => item.dangChieu).length || 0;
 

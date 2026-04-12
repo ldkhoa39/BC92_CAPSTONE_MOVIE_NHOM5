@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { updateMovieUpload } from './slice';
-import { DatePicker } from 'antd'; // Import DatePicker từ Ant Design
-import dayjs from 'dayjs'; // Import dayjs
+import { DatePicker } from 'antd'; 
+import dayjs from 'dayjs'; 
 
 export default function Edit() {
     const { id } = useParams();
@@ -37,7 +37,6 @@ export default function Edit() {
 
     // Hàm xử lý riêng cho DatePicker của Ant Design
     const handleChangeDate = (date, dateString) => {
-        // dateString sẽ có định dạng dd/mm/yyyy nhờ thuộc tính format của antd
         setMovie({ ...movie, ngayKhoiChieu: dateString });
     };
 
@@ -59,7 +58,7 @@ export default function Edit() {
         // Duyệt qua từng key để đóng gói FormData
         for (let key in movie) {
             if (key === 'hinhAnh') {
-                // API CapNhatPhimUpload yêu cầu key là 'File' (viết hoa chữ F)
+                // API CapNhatPhimUpload 
                 if (movie.hinhAnh instanceof File) {
                     formData.append('File', movie.hinhAnh, movie.hinhAnh.name);
                 }
@@ -110,7 +109,7 @@ export default function Edit() {
                     <DatePicker
                         format="DD/MM/YYYY"
                         className="w-full p-2"
-                        // Dùng dayjs để convert chuỗi ngày tháng cho DatePicker hiển thị
+                        // Dùng dayjs để convert chuỗi ngày tháng 
                         value={movie.ngayKhoiChieu ? dayjs(movie.ngayKhoiChieu) : null}
                         onChange={handleChangeDate}
                     />

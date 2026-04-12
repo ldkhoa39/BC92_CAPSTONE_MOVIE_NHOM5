@@ -34,21 +34,19 @@ export const updateMovieUpload = createAsyncThunk(
   "films/updateMovieUpload",
   async (formData, { rejectWithValue }) => {
     try {
-      // 1. Lấy đúng key mà folder Auth đang lưu (USER_ADMIN)
+      // Lấy key từ folder Auth
       const userAdmin = localStorage.getItem("USER_ADMIN");
       const token = userAdmin ? JSON.parse(userAdmin).accessToken : null;
 
-      // 2. Gửi API kèm Header trực tiếp tại đây
       const res = await api.post("/QuanLyPhim/CapNhatPhimUpload", formData, {
         headers: {
-          // Ép Header Authorization để sửa lỗi 401
           Authorization: `Bearer ${token}`,
         },
       });
 
       return res.data.content;
     } catch (error) {
-      // Trả về nội dung lỗi từ server để dễ debug
+      // debug
       return rejectWithValue(error.response?.data?.content || "Cập nhật thất bại!");
     }
   }
@@ -59,7 +57,7 @@ export const deleteMovie = createAsyncThunk(
   "films/deleteMovie",
   async (maPhim, { rejectWithValue, dispatch }) => {
     try {
-      // Lấy Token từ đúng key từ trong folder Auth
+      // Lấy key từ folder Auth
       const userAdmin = JSON.parse(localStorage.getItem("USER_ADMIN"));
       const token = userAdmin?.accessToken;
 
@@ -103,7 +101,6 @@ const filmsSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
             });
-        // (Không cần cập nhật state nội bộ cho deleteMovie vì ta sẽ dispatch fetchListMovieAdmin lại sau khi xóa thành công)
     },
 });
 
