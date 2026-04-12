@@ -14,33 +14,34 @@ export default function HomeCarousel() {
   }, [dispatch]);
 
   return (
-    <section className="relative home-carousel">
+    <section className="relative home-carousel overflow-hidden">
       <Carousel autoplay effect="fade" speed={1000}>
         {banners.map((banner) => (
           <div key={banner.maBanner}>
             <div 
-              className="relative h-[500px] md:h-[750px] w-full bg-cover bg-center transition-all duration-700"
+              className="relative h-[450px] sm:h-[600px] md:h-[750px] w-full bg-cover bg-center transition-all duration-700"
               style={{ backgroundImage: `url(${banner.hinhAnh})` }}
             >
-              
-              <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent flex items-center">
-                <div className="container mx-auto px-6 md:px-12">
-                  <div className="max-w-3xl space-y-6">
+              {/* Overlay: Chỉnh lại gradient để trên mobile nhìn rõ ảnh hơn */}
+              <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black via-black/40 md:via-black/60 to-transparent flex items-center">
+                <div className="container mx-auto px-4 sm:px-8 md:px-12">
+                  <div className="max-w-3xl space-y-4 md:space-y-6">
                     
-                    <h2 className="text-white text-5xl md:text-8xl font-black uppercase leading-[1.1] tracking-tighter drop-shadow-2xl">
+                    {/* Title: Giảm size trên mobile (text-4xl) và tăng dần lên desktop (text-8xl) */}
+                    <h2 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black uppercase leading-tight tracking-tighter drop-shadow-xl">
                       Trải nghiệm <br />
-                      <span className="text-red-600 block mt-2">Điện ảnh đỉnh cao</span>
+                      <span className="text-red-600 block mt-1">Điện ảnh đỉnh cao</span>
                     </h2>
                     
-                    <p className="text-gray-200 text-lg md:text-2xl font-light max-w-xl border-l-4 border-red-600 pl-4 py-2">
+                    {/* Description: Ẩn bớt trên màn hình cực nhỏ hoặc giảm size */}
+                    <p className="text-gray-200 text-sm sm:text-lg md:text-2xl font-light max-w-xs sm:max-w-md md:max-w-xl border-l-4 border-red-600 pl-4 py-1 md:py-2">
                       Khám phá những siêu phẩm bom tấn với chất lượng hình ảnh và âm thanh tuyệt đỉnh.
                     </p>
 
-                    <div className="pt-8">
-                      {/*Link vào dẫn thẳng đến trang đặt vé của phim đó */}
+                    <div className="pt-4 md:pt-8">
                       <button 
                         onClick={() => navigate(`/detail/${banner.maPhim}`)}
-                        className="bg-red-600 hover:bg-white hover:text-red-600 text-white font-black py-4 px-12 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(220,38,38,0.5)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] uppercase tracking-widest text-sm"
+                        className="bg-red-600 hover:bg-white hover:text-red-600 text-white font-black py-3 px-8 md:py-4 md:px-12 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(220,38,38,0.5)] uppercase tracking-widest text-xs md:text-sm"
                       >
                         Đặt vé ngay
                       </button>
@@ -53,8 +54,8 @@ export default function HomeCarousel() {
         ))}
       </Carousel>
 
-      {/* Effect */}
-      <div className="absolute bottom-0 w-full h-40 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent z-10"></div>
+      {/* Căn chỉnh lại lớp phủ mờ phía dưới đáy để tiệp vào nội dung trang chủ */}
+      <div className="absolute bottom-0 w-full h-24 md:h-40 bg-gradient-to-t from-zinc-950 to-transparent z-10"></div>
     </section>
   );
 }

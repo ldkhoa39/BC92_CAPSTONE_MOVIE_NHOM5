@@ -10,28 +10,67 @@ export default function TicketInfo() {
   }, 0);
 
   return (
-    <div className="bg-white p-6 rounded-2xl text-black">
-      {/*tổng tiền */}
-      <h2 className="text-3xl font-bold text-green-600 border-b pb-4">
-        {total.toLocaleString()} VNĐ
-      </h2>
+    <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl text-black shadow-2xl relative overflow-hidden">
+      {/* Hiệu ứng đường răng cưa giả lập vé xem phim (chỉ hiện trên desktop) */}
+      <div className="hidden md:block absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-zinc-950 rounded-full"></div>
+      <div className="hidden md:block absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-zinc-950 rounded-full"></div>
 
-      {/* chi tiết ghế đã chọn để kiểm tra */}
-      <div className="py-4">
-          <p className="text-gray-500">Ghế đang chọn:</p>
-          <div className="flex flex-wrap gap-2 mt-2">
-              {danhSachGheDangDat.map((ghe) => (
-                  <span key={ghe.maGhe} className="text-red-600 font-bold">
-                      Ghế {ghe.tenGhe}
-                  </span>
-              ))}
-          </div>
+      {/* 1. TỔNG TIỀN */}
+      <div className="text-center md:text-left border-b border-dashed border-zinc-300 pb-4">
+        <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Tổng tiền thanh toán</p>
+        <h2 className="text-3xl md:text-4xl font-black text-green-600">
+          {total.toLocaleString()} <span className="text-sm">VNĐ</span>
+        </h2>
+      </div>
+
+      {/* 2. CHI TIẾT GHẾ */}
+      <div className="py-4 border-b border-dashed border-zinc-300">
+        <div className="flex justify-between items-center mb-2">
+          <p className="text-xs font-bold text-zinc-500 uppercase">Ghế đang chọn:</p>
+          <span className="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded-full font-bold">
+            {danhSachGheDangDat.length} ghế
+          </span>
+        </div>
+        
+        <div className="flex flex-wrap gap-2 min-h-[40px]">
+          {danhSachGheDangDat.length > 0 ? (
+            danhSachGheDangDat.map((ghe) => (
+              <span 
+                key={ghe.maGhe} 
+                className="text-sm font-black text-red-600 bg-red-50 px-3 py-1 rounded-lg border border-red-100 animate-pulse"
+              >
+                {ghe.tenGhe}
+              </span>
+            ))
+          ) : (
+            <span className="text-sm italic text-zinc-400">Vui lòng chọn ghế...</span>
+          )}
+        </div>
+      </div>
+
+      {/* 3. THÔNG TIN BỔ SUNG (Nên có cho chuyên nghiệp) */}
+      <div className="py-4 space-y-2">
+        <div className="flex justify-between text-xs">
+          <span className="text-zinc-500">Hình thức:</span>
+          <span className="font-bold text-zinc-800">Trực tuyến</span>
+        </div>
+        <div className="flex justify-between text-xs">
+          <span className="text-zinc-500">Phí dịch vụ:</span>
+          <span className="font-bold text-zinc-800">Miễn phí</span>
+        </div>
       </div>
       
-      {/* Nút thanh toán */}
-      <button className="w-full bg-red-600 text-white py-3 rounded-lg mt-4 font-bold">
-          THANH TOÁN
+      {/* 4. NÚT THANH TOÁN */}
+      <button 
+        disabled={danhSachGheDangDat.length === 0}
+        className="w-full bg-red-600 hover:bg-zinc-900 disabled:bg-zinc-200 disabled:text-zinc-400 text-white py-4 rounded-xl mt-2 font-black transition-all duration-300 shadow-lg shadow-red-600/20 uppercase tracking-wider active:scale-95"
+      >
+        Thanh toán ngay
       </button>
+      
+      <p className="text-[10px] text-zinc-400 text-center mt-4 italic">
+        * Kiểm tra kỹ thông tin trước khi thanh toán
+      </p>
     </div>
   );
 }

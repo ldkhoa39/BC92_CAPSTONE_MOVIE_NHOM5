@@ -1,7 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Header() {
+
+  // State điều khiển đóng/mở menu trên mobile
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   // Style cho các link điều hướng khi Active
   const navLinkClass = ({ isActive }) =>
     `block py-2 px-3 rounded md:p-0 transition-all duration-300 ${
@@ -9,61 +14,72 @@ export default function Header() {
     }`;
 
   return (
-    <nav className="bg-zinc-950 border-b border-zinc-800 sticky top-0 z-50 w-full">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav className="bg-zinc-950 border-b border-zinc-800 sticky top-0 z-50 w-full h-16 md:h-20 flex items-center">
+      <div className="w-full max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 md:px-6">
+        
         {/* LOGO */}
-        <NavLink to="/" className="flex items-center space-x-3 italic">
-          <span className="self-center text-2xl font-black whitespace-nowrap text-white">
+        <NavLink to="/" className="flex items-center space-x-3 italic shrink-0">
+          <span className="self-center text-xl md:text-2xl font-black whitespace-nowrap text-white">
             BC92<span className="text-red-600 underline">MOVIE</span>
           </span>
         </NavLink>
 
-        {/* Nút Menu cho Mobile (Flowbite logic) */}
+        {/* Nút Menu cho Mobile - Chuyển breakpoint sang lg */}
         <button
-          data-collapse-toggle="navbar-default"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
           type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-600"
-          aria-controls="navbar-default"
-          aria-expanded="false"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg lg:hidden hover:bg-zinc-800 focus:outline-none"
         >
           <span className="sr-only">Open main menu</span>
-          <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
-          </svg>
+          {isMenuOpen ? (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+          )}
         </button>
 
-        {/* MENU ITEMS */}
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-zinc-800 rounded-lg bg-zinc-900 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent items-center">
+        {/* MENU ITEMS - Chuyển md thành lg để có thêm không gian */}
+        <div className={`${isMenuOpen ? "block" : "hidden"} w-full lg:block lg:w-auto transition-all duration-300`} id="navbar-default">
+          <ul className="font-medium flex flex-col p-4 lg:p-0 mt-4 border border-zinc-800 rounded-2xl bg-zinc-900 lg:flex-row lg:space-x-6 xl:space-x-8 lg:mt-0 lg:border-0 lg:bg-transparent items-center">
             <li>
-              <NavLink to="/" className={navLinkClass} end>Trang chủ</NavLink>
+              <NavLink to="/" className={navLinkClass} end onClick={() => setIsMenuOpen(false)}>Trang chủ</NavLink>
             </li>
             <li>
-              <NavLink to="/list-movie" className={navLinkClass}>Phim đang chiếu</NavLink>
+              <NavLink to="/list-movie" className={navLinkClass} onClick={() => setIsMenuOpen(false)}>Phim đang chiếu</NavLink>
             </li>
             <li>
-              <NavLink to="/booking" className={navLinkClass}>Đặt vé</NavLink>
+              <NavLink to="/booking" className={navLinkClass} onClick={() => setIsMenuOpen(false)}>Đặt vé</NavLink>
             </li>
-            <li className="hidden md:block w-[1px] h-5 bg-zinc-700 mx-2"></li>
-            <li>
+            
+            {/* Vạch ngăn cách - ẩn trên mobile và tablet */}
+            <li className="hidden lg:block w-[1px] h-5 bg-zinc-700 mx-2"></li>
+            
+            {/* Cụm nút bấm */}
+            <li className="flex flex-col lg:flex-row gap-3 w-full lg:w-auto mt-4 lg:mt-0">
               <NavLink 
                 to="/login" 
-                className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-900 font-bold rounded-lg text-sm px-5 py-2 text-center transition-all"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-white bg-zinc-800 lg:bg-transparent border border-zinc-700 lg:border-none hover:text-red-500 font-bold rounded-xl text-xs xl:text-sm px-4 py-2.5 text-center transition-all"
               >
                 ĐĂNG NHẬP
               </NavLink>
 
               <NavLink 
                 to="/register" 
-                className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-900 font-bold rounded-lg text-sm px-5 py-2 ml-3 text-center transition-all"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-white bg-red-600 hover:bg-white hover:text-red-600 font-bold rounded-xl text-xs xl:text-sm px-5 py-2.5 text-center transition-all shadow-lg shadow-red-600/20"
               >
                 ĐĂNG KÝ
               </NavLink>
-            </li>
-            <li>
+
               <NavLink 
                 to="/admin" 
-                className="text-white bg-yellow-600 hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-yellow-900 font-bold rounded-lg text-sm px-5 py-2 text-center transition-all"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-white bg-amber-600 hover:bg-amber-700 font-bold rounded-xl text-xs xl:text-sm px-5 py-2.5 text-center transition-all"
               >
                 ADMIN
               </NavLink>
