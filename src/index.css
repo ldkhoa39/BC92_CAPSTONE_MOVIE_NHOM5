@@ -4,3 +4,48 @@
 @source "../node_modules/flowbite";
 
 @import "@fortawesome/fontawesome-free/css/all.min.css";
+
+/*CLASS ẨN HOÀN TOÀN THANH CUỘN (Dùng cho Lịch Chiếu, Header...)*/
+.scrollbar-hide {
+    /* Cho Firefox */
+    scrollbar-width: none !important;
+
+    /* Cho IE, Edge cũ */
+    -ms-overflow-style: none !important;
+}
+
+/* Cho Chrome, Edge mới (Chromium), Safari */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.scrollbar-red-thin {
+    scrollbar-width: thin !important;
+    scrollbar-color: #dc2626 transparent !important;
+}
+
+.scrollbar-red-thin::-webkit-scrollbar {
+    display: block !important;
+    height: 4px !important; 
+    width: 4px !important; 
+}
+
+.scrollbar-red-thin::-webkit-scrollbar-thumb {
+    background-color: #dc2626 !important;
+    border-radius: 20px !important;
+}
+
+.scrollbar-red-thin::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.no-scrollbar-y {
+    overflow-y: hidden !important;
+    touch-action: pan-x !important; 
+}
+
+.prevent-shift {
+    scrollbar-gutter: stable;
+}

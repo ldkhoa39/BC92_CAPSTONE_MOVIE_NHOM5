@@ -73,58 +73,55 @@ export default function AddNew() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow rounded">
-      <h2 className="text-2xl font-bold mb-4">Thêm Phim Mới</h2>
+    <div className="max-w-2xl mx-auto p-6 md:p-8 bg-zinc-900 border border-zinc-800 shadow-2xl rounded-3xl animate-fadeIn">
+      <div className="flex items-center gap-3 mb-6 border-b border-zinc-800 pb-4">
+        <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500">
+            <i className="fa-solid fa-video"></i>
+        </div>
+        <h2 className="text-2xl font-black text-white uppercase tracking-tight">Thêm Phim Mới</h2>
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          name="tenPhim"
-          placeholder="Tên phim"
-          className="w-full p-2 border"
-          onChange={handleChange}
-        />
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div>
+          <label className="block mb-2 text-sm font-bold text-zinc-400">Tên phim</label>
+          <input name="tenPhim" placeholder="Nhập tên phim..." className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all" onChange={handleChange} />
+        </div>
 
-        <input
-          name="trailer"
-          placeholder="Link Trailer"
-          className="w-full p-2 border"
-          onChange={handleChange}
-        />
+        <div>
+          <label className="block mb-2 text-sm font-bold text-zinc-400">Link Trailer</label>
+          <input name="trailer" placeholder="https://youtube.com/..." className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all" onChange={handleChange} />
+        </div>
 
-        <textarea
-          name="moTa"
-          placeholder="Mô tả"
-          className="w-full p-2 border"
-          onChange={handleChange}
-        />
+        <div>
+          <label className="block mb-2 text-sm font-bold text-zinc-400">Mô tả chi tiết</label>
+          <textarea name="moTa" placeholder="Nhập nội dung phim..." rows={4} className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all resize-none" onChange={handleChange} />
+        </div>
 
-        {/* ✅ Ant Design DatePicker */}
-        <DatePicker
-          format="DD/MM/YYYY"
-          className="w-full"
-          onChange={handleDateChange}
-        />
+        <div>
+          <label className="block mb-2 text-sm font-bold text-zinc-400">Ngày khởi chiếu</label>
+          {/* Cần bọc ConfigProvider theme dark ở ngoài app để AntD DatePicker màu tối */}
+          <DatePicker format="DD/MM/YYYY" className="w-full h-12 bg-zinc-950 border-zinc-800 hover:border-red-500" onChange={handleDateChange} />
+        </div>
 
-        <div className="flex space-x-4">
-          <label>
-            <input type="checkbox" name="dangChieu" onChange={handleChange} /> Đang chiếu
+        <div className="flex space-x-6 p-4 bg-zinc-950 border border-zinc-800 rounded-xl">
+          <label className="flex items-center gap-2 cursor-pointer text-zinc-300 font-medium">
+            <input type="checkbox" name="dangChieu" className="w-5 h-5 accent-red-600" onChange={handleChange} /> 
+            Đang chiếu
           </label>
 
-          <label>
-            <input type="checkbox" name="hot" onChange={handleChange} /> Hot
+          <label className="flex items-center gap-2 cursor-pointer text-zinc-300 font-medium">
+            <input type="checkbox" name="hot" className="w-5 h-5 accent-red-600" onChange={handleChange} /> 
+            Phim Hot <i className="fa-solid fa-fire text-orange-500"></i>
           </label>
         </div>
 
         <div>
-          <label className="block mb-2">Hình ảnh:</label>
-          <input type="file" accept="image/*" onChange={handleChangeFile} />
+          <label className="block mb-2 text-sm font-bold text-zinc-400">Poster Hình ảnh</label>
+          <input type="file" accept="image/*" className="w-full text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-zinc-800 file:text-white hover:file:bg-zinc-700 transition-all" onChange={handleChangeFile} />
         </div>
 
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-        >
-          Tạo phim mới
+        <button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-lg shadow-green-600/20 mt-4">
+          <i className="fa-solid fa-cloud-arrow-up mr-2"></i> Lưu phim mới
         </button>
       </form>
     </div>

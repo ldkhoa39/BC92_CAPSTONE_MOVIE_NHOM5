@@ -6,13 +6,12 @@ import LichChieuDetail from '../_components/LichChieuDetail';
 
 export default function Detail() {
     const dispatch = useDispatch();
-    const navigate = useNavigate(); //navigate để chuyển trang
+    const navigate = useNavigate(); 
     const { maPhim } = useParams();
 
     const { loading, data } = useSelector((state) => state.detailMovieReducer);
     const { detail, schedule } = data || {};
 
-    // Hàm xử lý khi click vào nút mua vé/giờ chiếu
     const handleBooking = (maLichChieu) => {
         if (maLichChieu) {
             navigate(`/checkout/${maLichChieu}`);
@@ -21,7 +20,6 @@ export default function Detail() {
         }
     };
 
-    // Tìm mã lịch chiếu đầu tiên để gán cho nút "MUA VÉ NGAY" ở trên cùng
     const firstTicketId = schedule?.heThongRapChieu?.[0]?.cumRapChieu?.[0]?.lichChieuPhim?.[0]?.maLichChieu;
 
     useEffect(() => {
@@ -45,8 +43,8 @@ export default function Detail() {
 
     return (
         <div className="bg-zinc-950 min-h-screen text-white pb-20">
-            {/* Banner blur blur*/}
-            <div className="relative h-[400px] w-full overflow-hidden">
+            {/* Banner blur */}
+            <div className="relative h-[300px] md:h-[400px] w-full overflow-hidden">
                 <img
                     src={detail?.hinhAnh}
                     className="w-full h-full object-cover blur-xl opacity-30 scale-110"
@@ -56,38 +54,38 @@ export default function Detail() {
             </div>
 
             {/* Nội dung chính */}
-            <div className="container mx-auto px-4 -mt-64 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div className="container mx-auto px-4 sm:px-6 -mt-32 md:-mt-64 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                    
                     {/* Poster Phim */}
-                    <div className="md:col-span-1">
+                    <div className="md:col-span-1 flex flex-col items-center md:items-start">
                         <img
                             src={detail?.hinhAnh}
                             alt={detail?.tenPhim}
-                            className="w-full rounded-2xl shadow-2xl border-4 border-zinc-800 shadow-red-900/20"
+                            className="w-2/3 md:w-full rounded-2xl shadow-2xl border-4 border-zinc-800 shadow-red-900/20"
                         />
-                        {/* Nút MUA VÉ NGAY: Lấy suất đầu tiên hoặc báo lỗi nếu không có item */}
                         <button
                             onClick={() => handleBooking(firstTicketId)}
-                            className="w-full mt-6 bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-xl transition-all shadow-lg hover:scale-105 uppercase">
+                            className="w-2/3 md:w-full mt-6 bg-red-600 hover:bg-red-700 text-white font-black py-3 md:py-4 rounded-xl transition-all shadow-lg hover:scale-105 uppercase text-sm md:text-base">
                             Mua vé ngay
                         </button>
                     </div>
 
                     {/* Thông tin Phim */}
-                    <div className="md:col-span-2 flex flex-col justify-end pb-4">
-                        <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">
+                    <div className="md:col-span-2 flex flex-col justify-end pb-4 text-center md:text-left mt-6 md:mt-0">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">
                             {detail?.tenPhim}
                         </h1>
 
-                        <div className="flex items-center space-x-4 mb-6">
-                            <span className="bg-red-600 text-xs font-bold px-2.5 py-1 rounded">C18</span>
-                            <span className="text-yellow-400 font-bold">★ {detail?.danhGia}/10</span>
-                            <span className="text-gray-400">{new Date(detail?.ngayKhoiChieu).getFullYear()}</span>
+                        <div className="flex items-center justify-center md:justify-start space-x-3 md:space-x-4 mb-6">
+                            <span className="bg-red-600 text-[10px] md:text-xs font-bold px-2 md:px-2.5 py-1 rounded">C18</span>
+                            <span className="text-yellow-400 font-bold text-sm md:text-base">★ {detail?.danhGia}/10</span>
+                            <span className="text-gray-400 text-sm md:text-base">{new Date(detail?.ngayKhoiChieu).getFullYear()}</span>
                         </div>
 
-                        <div className="bg-zinc-900/50 backdrop-blur-md p-6 rounded-2xl border border-zinc-800">
-                            <h2 className="text-red-500 font-bold uppercase mb-2 tracking-widest text-sm">Nội dung phim</h2>
-                            <p className="text-gray-300 leading-relaxed text-lg italic">
+                        <div className="bg-zinc-900/80 backdrop-blur-md p-5 md:p-6 rounded-2xl border border-zinc-800 text-left">
+                            <h2 className="text-red-500 font-bold uppercase mb-2 tracking-widest text-xs md:text-sm">Nội dung phim</h2>
+                            <p className="text-gray-300 leading-relaxed text-sm md:text-lg italic line-clamp-4 md:line-clamp-none">
                                 "{detail?.moTa || 'Đang cập nhật nội dung...'}"
                             </p>
                         </div>
@@ -95,49 +93,52 @@ export default function Detail() {
                 </div>
 
                 {/* Phần Lịch Chiếu */}
-                <div className="mt-20">
-                    <h3 className="text-2xl font-bold mb-8 border-l-4 border-red-600 pl-4 uppercase tracking-wider">
+                <div className="mt-16 md:mt-20">
+                    <h3 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 border-l-4 border-red-600 pl-4 uppercase tracking-wider">
                         Lịch chiếu & Suất chiếu
                     </h3>
 
                     {schedule?.heThongRapChieu?.length > 0 ? (
-                        <div className="grid grid-cols-1 lg:grid-cols-4 bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl">
+                        <div className="grid grid-cols-1 lg:grid-cols-4 bg-zinc-900 rounded-2xl border border-zinc-800 shadow-2xl overflow-hidden">
 
-                            {/* TABS LOGO */}
-                            <div className="col-span-1 border-r border-zinc-800 bg-zinc-950/50">
+                            {/* TABS LOGO (Responsive: Ngang trên Mobile, Dọc trên Desktop) */}
+                            <div className="col-span-1 border-b lg:border-b-0 lg:border-r border-zinc-800 bg-zinc-950/80 flex lg:flex-col overflow-x-auto scrollbar-hide no-scrollbar-y">
                                 {schedule.heThongRapChieu.map((htr) => (
                                     <button
                                         key={htr.maHeThongRap}
-                                        className="w-full flex items-center p-4 hover:bg-zinc-800 transition-all border-b border-zinc-800 group"
+                                        className="flex-shrink-0 min-w-[140px] lg:w-full flex lg:flex-row flex-col items-center justify-center lg:justify-start p-4 hover:bg-zinc-800 transition-all border-r lg:border-r-0 lg:border-b border-zinc-800 group"
                                     >
-                                        <img src={htr.logo} className="w-12 h-12 grayscale group-hover:grayscale-0 transition-all" alt={htr.tenHeThongRap} />
-                                        <span className="ml-3 font-bold text-gray-400 group-hover:text-white uppercase text-sm">{htr.tenHeThongRap}</span>
+                                        <img src={htr.logo} className="w-10 h-10 md:w-12 md:h-12 grayscale group-hover:grayscale-0 transition-all mb-2 lg:mb-0" alt={htr.tenHeThongRap} />
+                                        <span className="lg:ml-3 font-bold text-gray-400 group-hover:text-white uppercase text-[10px] md:text-sm text-center lg:text-left">
+                                            {htr.tenHeThongRap}
+                                        </span>
                                     </button>
                                 ))}
                             </div>
 
-                            {/*  CỤM RẠP & SUẤT CHIẾU */}
-                            <div className="col-span-3 p-6 max-h-[600px] overflow-y-auto custom-scrollbar">
+                            {/* CỤM RẠP & SUẤT CHIẾU  */}
+                            <div className="col-span-1 lg:col-span-3 p-4 md:p-6 h-auto">
                                 {schedule.heThongRapChieu[0]?.cumRapChieu.map((cumRap) => (
-                                    <div key={cumRap.maCumRap} className="mb-10 last:mb-0">
-                                        <h4 className="text-xl font-bold text-red-500 mb-4 flex items-center">
-                                            <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" /></svg>
-                                            {cumRap.tenCumRap}
+                                    <div key={cumRap.maCumRap} className="mb-8 md:mb-10 last:mb-0">
+                                        <h4 className="text-lg md:text-xl font-bold text-red-500 mb-4 flex items-center">
+                                            <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" />
+                                            </svg>
+                                            <span className="truncate">{cumRap.tenCumRap}</span>
                                         </h4>
 
-                                        {/* Thay thế bằng Component đã chia theo ngày */}
                                         <LichChieuDetail 
                                             lichChieu={cumRap.lichChieuPhim} 
                                             handleBooking={handleBooking} 
                                         />
                                         
-                                        <hr className="mt-8 border-zinc-800" />
+                                        <hr className="mt-6 md:mt-8 border-zinc-800" />
                                     </div>
                                 ))}
                             </div>
                         </div>
                     ) : (
-                        <div className="p-10 bg-zinc-900 rounded-2xl border border-dashed border-zinc-700 text-center text-gray-500">
+                        <div className="p-8 md:p-10 bg-zinc-900 rounded-2xl border border-dashed border-zinc-700 text-center text-gray-500">
                             Phim hiện chưa có lịch chiếu trên hệ thống.
                         </div>
                     )}

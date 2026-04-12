@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import { fetchBanners, fetchData } from './slice';
 import Movie from './../_components/moive';
 import HomeCarousel from '../_components/HomeCarousel';
+import { sliderSettings } from '../_components/sliderConfig';
 
 
 // Nút bấm bên phải (Next)
@@ -73,68 +74,71 @@ export default function Home() {
   );
 
   return (
-    <div className="bg-zinc-950 min-h-screen pb-20 overflow-hidden text-white">
-      {/* Banner */}
+    <div className="bg-zinc-950 min-h-screen pb-12 md:pb-20 overflow-hidden text-white selection:bg-red-600/30">
+      {/* BANNER QUẢNG CÁO */}
       <HomeCarousel />
 
-      <div className="container mx-auto px-4 mt-16 relative z-20 space-y-24">
+      {/* NỘI DUNG CHÍNH */}
+      <div className="container mx-auto px-4 mt-10 md:mt-16 relative z-20 space-y-12 md:space-y-24 max-w-7xl">
         
-        {/* GROUP 1: PHIM ĐANG CHIẾU */}
+        {/* PHIM ĐANG CHIẾU */}
         <section className="animate-fadeIn">
-          <div className="flex justify-between items-end mb-8">
-            <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter border-l-8 border-red-600 pl-4 leading-none">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tighter border-l-[6px] md:border-l-8 border-red-600 pl-3 md:pl-4 leading-none">
               Phim Đang Chiếu
             </h2>
-            <button className="text-red-600 font-bold hover:text-white transition-colors text-sm tracking-widest">
-              XEM TẤT CẢ +
+            <button className="text-red-600 font-bold hover:text-white transition-colors text-xs md:text-sm tracking-widest uppercase self-start sm:self-auto active:scale-95">
+              Xem tất cả +
             </button>
           </div>
           
-          <Slider {...settings} className="movie-slider -mx-2">
+          <Slider {...sliderSettings} className="movie-slider -mx-2">
             {nowShowing?.map((movie) => (
-              <div key={movie.maPhim} className="px-3 py-4">
+              <div key={movie.maPhim} className="px-2 py-4">
                 <Movie movie={movie} />
               </div>
             ))}
           </Slider>
         </section>
 
-        {/* GROUP 2: SIÊU PHẨM HOT  */}
+        {/* SIÊU PHẨM HOT */}
         <section className="animate-fadeIn">
-          <div className="flex justify-between items-end mb-8">
-            <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter border-l-8 border-white pl-4 leading-none">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tighter border-l-[6px] md:border-l-8 border-white pl-3 md:pl-4 leading-none text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">
               Siêu Phẩm HOT
             </h2>
           </div>
           
-          <Slider {...settings} className="movie-slider -mx-2">
+          <Slider {...sliderSettings} className="movie-slider -mx-2">
             {hotMovies?.map((movie) => (
-              <div key={movie.maPhim} className="px-3 py-4">
+              <div key={movie.maPhim} className="px-2 py-4">
                 <Movie movie={movie} />
               </div>
             ))}
           </Slider>
         </section>
 
-        {/* GROUP 3: PHIM SẮP CHIẾU */}
+        {/* PHIM SẮP CHIẾU */}
         <section className="animate-fadeIn pb-10">
-          <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter border-l-8 border-zinc-700 pl-4 leading-none mb-8">
-            Phim Sắp Chiếu
-          </h2>
-          <Slider {...settings} className="movie-slider -mx-2">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tighter border-l-[6px] md:border-l-8 border-zinc-700 pl-3 md:pl-4 leading-none">
+              Phim Sắp Chiếu
+            </h2>
+          </div>
+          
+          <Slider {...sliderSettings} className="movie-slider -mx-2">
             {comingSoon?.map((movie) => (
-              <div key={movie.maPhim} className="px-3 py-4 opacity-80 hover:opacity-100 transition-opacity">
+              <div key={movie.maPhim} className="px-2 py-4 opacity-70 hover:opacity-100 transition-opacity duration-300">
                 <Movie movie={movie} />
               </div>
             ))}
           </Slider>
         </section>
-
       </div>
 
-      {/* Hiệu ứng trang trí background */}
-      <div className="fixed top-1/2 -left-64 w-[500px] h-[500px] bg-red-900/5 blur-[120px] pointer-events-none rounded-full"></div>
-      <div className="fixed bottom-0 -right-64 w-[500px] h-[500px] bg-blue-900/5 blur-[120px] pointer-events-none rounded-full"></div>
+      {/* HIỆU ỨNG TRANG TRÍ*/}
+      <div className="fixed top-1/2 -left-32 md:-left-64 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-red-900/10 md:bg-red-900/5 blur-[80px] md:blur-[120px] pointer-events-none rounded-full z-0"></div>
+      <div className="fixed bottom-0 -right-32 md:-right-64 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-900/10 md:bg-blue-900/5 blur-[80px] md:blur-[120px] pointer-events-none rounded-full z-0"></div>
     </div>
   );
 }

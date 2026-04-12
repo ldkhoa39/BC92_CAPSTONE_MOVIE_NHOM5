@@ -82,67 +82,101 @@ export default function QuickBooking() {
 
   //
   return (
-    <div className="bg-zinc-900/80 backdrop-blur-xl p-6 rounded-3xl border border-zinc-800 shadow-2xl flex flex-col lg:flex-row items-end gap-4">
+    <div className="bg-zinc-900/80 backdrop-blur-xl 
+      p-4 sm:p-5 md:p-6 
+      rounded-2xl md:rounded-3xl 
+      border border-zinc-800 shadow-2xl 
+      flex flex-col lg:flex-row 
+      gap-3 md:gap-4 
+      lg:items-end">
 
-      {/* CHỌN PHIM */}
-      <div className="flex-1 w-full">
-        <label className="text-[10px] font-black text-red-600 uppercase mb-2 block tracking-widest">1. Chọn Phim</label>
-        <select
-          className="w-full bg-zinc-800 text-white p-3 rounded-xl border border-zinc-700 outline-none focus:border-red-600 transition-all cursor-pointer"
-          value={selectedMovieId}
-          onChange={(e) => handleMovieChange(e.target.value)}
-        >
+      {/* 1. CHỌN PHIM */}
+      <div className="w-full lg:flex-1">
+        <label className="text-xs md:text-sm font-bold text-red-600 uppercase mb-2 block tracking-wide px-1">
+          🎬 Chọn Phim
+        </label>
+        <select className="w-full bg-zinc-800/50 text-white 
+          p-3 md:p-3.5 
+          rounded-xl border border-zinc-700 
+          outline-none 
+          focus:border-red-600 focus:bg-zinc-800 
+          transition-all cursor-pointer 
+          text-sm md:text-base" value={selectedMovieId} onChange={(e)=> handleMovieChange(e.target.value)}
+          >
           <option value="">Chọn phim bạn muốn xem...</option>
           {movieList.map((movie) => (
-            <option key={movie.maPhim} value={movie.maPhim}>
-              {movie.tenPhim}
-            </option>
+          <option key={movie.maPhim} value={movie.maPhim} className="bg-zinc-900">
+            {movie.tenPhim}
+          </option>
           ))}
         </select>
       </div>
 
-      {/* CHỌN RẠP */}
-      <div className="flex-1 w-full">
-        <label className="text-[10px] font-black text-red-600 uppercase mb-2 block tracking-widest">2. Chọn Rạp</label>
-        <select
-          disabled={!selectedMovieId || cinemaList.length === 0}
-          className="w-full bg-zinc-800 text-white p-3 rounded-xl border border-zinc-700 outline-none focus:border-red-600 transition-all cursor-pointer disabled:opacity-50"
-          value={selectedCinemaId}
-          onChange={(e) => setSelectedCinemaId(e.target.value)}
-        >
-          <option value="">{selectedMovieId ? "Chọn rạp..." : "Vui lòng chọn phim trước"}</option>
+      {/* 2. CHỌN RẠP */}
+      <div className="w-full lg:flex-1">
+        <label className="text-xs md:text-sm font-bold text-red-600 uppercase mb-2 block tracking-wide px-1">
+          📍 Chọn Rạp
+        </label>
+        <select disabled={!selectedMovieId || cinemaList.length===0} className="w-full bg-zinc-800/50 text-white 
+          p-3 md:p-3.5 
+          rounded-xl border border-zinc-700 
+          outline-none 
+          focus:border-red-600 focus:bg-zinc-800 
+          transition-all cursor-pointer 
+          disabled:opacity-40 disabled:cursor-not-allowed
+          text-sm md:text-base" value={selectedCinemaId} onChange={(e)=> setSelectedCinemaId(e.target.value)}
+          >
+          <option value="">
+            {selectedMovieId ? "Chọn rạp..." : "Vui lòng chọn phim trước"}
+          </option>
           {cinemaList.map((cum) => (
-            <option key={cum.maCumRap} value={cum.maCumRap}>
-              {cum.tenHeThongRap} - {cum.tenCumRap}
-            </option>
+          <option key={cum.maCumRap} value={cum.maCumRap} className="bg-zinc-900">
+            {cum.tenHeThongRap} - {cum.tenCumRap}
+          </option>
           ))}
         </select>
       </div>
 
-      {/* CHỌN SUẤT CHIẾU */}
-      <div className="flex-1 w-full">
-        <label className="text-[10px] font-black text-red-600 uppercase mb-2 block tracking-widest">3. Suất Chiếu</label>
-        <select
-          disabled={!selectedCinemaId || sessionList.length === 0}
-          className="w-full bg-zinc-800 text-white p-3 rounded-xl border border-zinc-700 outline-none focus:border-red-600 transition-all cursor-pointer disabled:opacity-50"
-          value={selectedSessionId}
-          onChange={(e) => setSelectedSessionId(e.target.value)}
-        >
-          <option value="">{selectedCinemaId ? "Chọn suất chiếu..." : "Vui lòng chọn rạp trước"}</option>
+      {/* 3. CHỌN SUẤT CHIẾU */}
+      <div className="w-full lg:flex-1">
+        <label className="text-xs md:text-sm font-bold text-red-600 uppercase mb-2 block tracking-wide px-1">
+          ⏰ Suất Chiếu
+        </label>
+        <select disabled={!selectedCinemaId || sessionList.length===0} className="w-full bg-zinc-800/50 text-white 
+          p-3 md:p-3.5 
+          rounded-xl border border-zinc-700 
+          outline-none 
+          focus:border-red-600 focus:bg-zinc-800 
+          transition-all cursor-pointer 
+          disabled:opacity-40 disabled:cursor-not-allowed
+          text-sm md:text-base" value={selectedSessionId} onChange={(e)=> setSelectedSessionId(e.target.value)}
+          >
+          <option value="">
+            {selectedCinemaId ? "Chọn suất chiếu..." : "Vui lòng chọn rạp trước"}
+          </option>
           {sessionList.map((lich) => (
-            <option key={lich.maLichChieu} value={lich.maLichChieu}>
-              {moment(lich.ngayChieuGioChieu).format('DD/MM/YYYY ~ HH:mm')}
-            </option>
+          <option key={lich.maLichChieu} value={lich.maLichChieu} className="bg-zinc-900">
+            {moment(lich.ngayChieuGioChieu).format("DD/MM/YYYY ~ HH:mm")}
+          </option>
           ))}
         </select>
       </div>
 
-      {/* NÚT ĐẶT VÉ */}
-      <button
-        disabled={!selectedSessionId}
-        onClick={() => navigate(`/checkout/${selectedSessionId}`)}
-        className="w-full lg:w-auto px-10 py-3.5 bg-red-600 hover:bg-white hover:text-red-600 text-white font-black rounded-xl transition-all disabled:bg-zinc-700 disabled:text-zinc-500 uppercase italic tracking-tighter shadow-lg shadow-red-600/20"
-      >
+      {/* BUTTON */}
+      <button disabled={!selectedSessionId} onClick={()=> navigate(`/checkout/${selectedSessionId}`)}
+        className="w-full lg:w-auto
+        px-8 md:px-10
+        py-3 md:py-3.5
+        bg-red-600 hover:bg-white hover:text-red-600
+        text-white font-black
+        rounded-xl
+        transition-all duration-300
+        disabled:bg-zinc-700/50 disabled:text-zinc-500 disabled:scale-100
+        active:scale-95
+        uppercase tracking-tight
+        shadow-lg shadow-red-600/20
+        mt-1 lg:mt-0"
+        >
         Mua vé ngay
       </button>
     </div>

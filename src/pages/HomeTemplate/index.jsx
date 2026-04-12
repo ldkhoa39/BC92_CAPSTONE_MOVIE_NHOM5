@@ -6,7 +6,7 @@ export default function HomeTemplate() {
   return (
     <div>
       <Header />
-      <div className="pt-20 min-h-screen bg-zinc-900"> 
+      <div > 
         <Outlet />
       </div>
       <Footer />

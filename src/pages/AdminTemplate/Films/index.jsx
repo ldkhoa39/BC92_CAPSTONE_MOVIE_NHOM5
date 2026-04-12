@@ -32,51 +32,62 @@ export default function Films() {
   if (loading) return <div className="text-center mt-10 text-xl">Đang tải dữ liệu phim...</div>;
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Quản lý Phim</h2>
-      
-      {/* Nút Thêm Phim */}
-      <NavLink 
-        to="/admin/films/addnew" 
-        className="bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block hover:bg-blue-700"
-      >
-        + Thêm Phim Mới
-      </NavLink>
+    <div className="p-4 md:p-6 animate-fadeIn">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div>
+          <h2 className="text-2xl font-black text-white uppercase tracking-tight">Quản lý Phim</h2>
+          <p className="text-zinc-500 text-sm">Danh sách toàn bộ phim trên hệ thống.</p>
+        </div>
+        
+        <NavLink 
+          to="/admin/films/addnew" 
+          className="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-lg shadow-red-600/20 flex items-center gap-2"
+        >
+          <i className="fa-solid fa-plus"></i> Thêm Phim Mới
+        </NavLink>
+      </div>
 
-      {/* Bảng Danh sách phim */}
-      <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4">
-        <table className="w-full text-sm text-left text-gray-500">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+      <div className="overflow-x-auto bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl">
+        <table className="w-full text-sm text-left text-zinc-400">
+          <thead className="text-xs text-zinc-300 uppercase bg-zinc-800/50 border-b border-zinc-800">
             <tr>
-              <th className="px-6 py-3">Mã Phim</th>
-              <th className="px-6 py-3">Hình Ảnh</th>
-              <th className="px-6 py-3">Tên Phim</th>
-              <th className="px-6 py-3">Mô Tả</th>
-              <th className="px-6 py-3 text-center">Hành Động</th>
+              <th className="px-6 py-4 font-black">Mã Phim</th>
+              <th className="px-6 py-4 font-black">Hình Ảnh</th>
+              <th className="px-6 py-4 font-black">Tên Phim</th>
+              <th className="px-6 py-4 font-black">Mô Tả</th>
+              <th className="px-6 py-4 font-black text-center">Hành Động</th>
             </tr>
           </thead>
           <tbody>
             {listMovie?.map((movie) => (
-              <tr key={movie.maPhim} className="bg-white border-b hover:bg-gray-50">
-                <td className="px-6 py-4 font-medium text-gray-900">{movie.maPhim}</td>
+              <tr key={movie.maPhim} className="border-b border-zinc-800 hover:bg-zinc-800/50 transition-colors">
+                <td className="px-6 py-4 font-bold text-white">{movie.maPhim}</td>
                 <td className="px-6 py-4">
-                  <img src={movie.hinhAnh} alt={movie.tenPhim} className="w-16 h-16 object-cover rounded" />
+                  <div className="w-16 h-20 rounded-lg overflow-hidden border border-zinc-700 shadow-md">
+                    <img src={movie.hinhAnh} alt={movie.tenPhim} className="w-full h-full object-cover" />
+                  </div>
                 </td>
-                <td className="px-6 py-4 font-semibold text-gray-900">{movie.tenPhim}</td>
-                <td className="px-6 py-4 truncate max-w-xs">{movie.moTa}</td>
-                <td className="px-6 py-4 flex justify-center space-x-3">
-                  <NavLink 
-                    to={`/admin/films/edit/${movie.maPhim}`}
-                    className="font-medium text-blue-600 hover:underline"
-                  >
-                    Sửa
-                  </NavLink>
-                  <button 
-                    onClick={() => handleDelete(movie.maPhim)}
-                    className="font-medium text-red-600 hover:underline"
-                  >
-                    Xóa
-                  </button>
+                <td className="px-6 py-4 font-bold text-white">{movie.tenPhim}</td>
+                <td className="px-6 py-4">
+                  <p className="truncate max-w-[200px] text-zinc-400" title={movie.moTa}>{movie.moTa}</p>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="flex justify-center items-center space-x-3">
+                    <NavLink 
+                      to={`/admin/films/edit/${movie.maPhim}`}
+                      className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-colors"
+                      title="Chỉnh sửa"
+                    >
+                      <i className="fa-solid fa-pen-to-square"></i>
+                    </NavLink>
+                    <button 
+                      onClick={() => handleDelete(movie.maPhim)}
+                      className="w-8 h-8 rounded-lg bg-red-500/10 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors"
+                      title="Xóa phim"
+                    >
+                      <i className="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

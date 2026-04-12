@@ -21,15 +21,39 @@ const legendItems = [
 
 export default function SeatLegend() {
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full mt-12 flex flex-col md:flex-row justify-between gap-6 md:gap-4 lg:w-4/5 shadow-inner">
+    <div
+      className="
+        bg-zinc-900 border border-zinc-800 
+        rounded-2xl 
+        p-4 sm:p-5 md:p-6 
+        w-full mt-10 
+        flex flex-col sm:flex-row flex-wrap 
+        justify-center md:justify-between 
+        gap-4 md:gap-6 
+        lg:w-4/5 
+        shadow-inner
+      "
+    >
       {legendItems.map((item, index) => (
-        <div key={index} className="flex items-center gap-4">
-          {/* Ô màu mô phỏng ghế */}
-          <div className={`w-8 h-8 rounded-md flex items-center justify-center font-bold text-[10px] ${item.class}`}>
+        <div
+          key={index}
+          className="flex items-center gap-3 min-w-[140px]"
+        >
+          {/* Ô ghế */}
+          <div
+            className={`
+              w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 
+              rounded-md 
+              flex items-center justify-center 
+              font-bold text-[10px] sm:text-xs 
+              ${item.class}
+            `}
+          >
             {item.icon}
           </div>
-          {/* Chữ mô tả */}
-          <span className="text-gray-400 text-sm font-medium tracking-wide">
+
+          {/* Text */}
+          <span className="text-gray-400 text-xs sm:text-sm font-medium">
             {item.text}
           </span>
         </div>
