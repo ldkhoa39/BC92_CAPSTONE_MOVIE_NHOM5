@@ -7,7 +7,8 @@ import checkoutReducer from '../pages/HomeTemplate/Checkout/slice';
 import bookingReducer from "../pages/HomeTemplate/Booking/slice"
 import loginReducer from "../pages/HomeTemplate/Login/slice"
 import registerReducer from "../pages/HomeTemplate/Register/slice"
-
+// admin
+import filmsReducer from '../pages/AdminTemplate/Films/slice';
 
 const store = configureStore({
     reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
         bookingReducer,
         loginReducer,
         registerReducer,
+        filmsReducer,
     },
 });
 

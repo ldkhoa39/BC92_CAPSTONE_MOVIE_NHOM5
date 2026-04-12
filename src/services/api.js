@@ -5,22 +5,15 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const user = localStorage.getItem("USER_LOGIN") 
-    ? JSON.parse(localStorage.getItem("USER_LOGIN")) 
-    : null;
+  const user = JSON.parse(localStorage.getItem("USER_LOGIN"));
 
-  config.headers = {
-    ...config.headers,
-    TokenCybersoft: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA5MiIsIkhldEhhblN0cmluZyI6IjE4LzA5LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4OTY4OTYwMDAwMCIsIm5iZiI6MTc2MTMyNTIwMCwiZXhwIjoxNzg5ODM3MjAwfQ.wzN71RMWnzxytkHIOECJCmKqVyDD-AylZWuEairOdiM", 
-  };
-
-  if (user && user.accessToken) {
-      config.headers.Authorization = `Bearer ${user.accessToken}`;
+  if (user?.accessToken) {
+    config.headers.Authorization = `Bearer ${user.accessToken}`;
   }
 
+  config.headers.TokenCybersoft = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA5MiIsIkhldEhhblN0cmluZyI6IjE4LzA5LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc4OTY4OTYwMDAwMCIsIm5iZiI6MTc2MTMyNTIwMCwiZXhwIjoxNzg5ODM3MjAwfQ.wzN71RMWnzxytkHIOECJCmKqVyDD-AylZWuEairOdiM";
+
   return config;
-}, (error) => {
-    return Promise.reject(error);
 });
 
 export default api;

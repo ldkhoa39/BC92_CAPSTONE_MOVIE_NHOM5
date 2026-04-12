@@ -14,7 +14,7 @@ const routes = [
       },
       // CẬP NHẬT TRANG ĐẶT VÉ 
       {
-        path: "checkout/:maLichChieu", 
+        path: "checkout/:maLichChieu",
         element: lazy(() => import("../pages/HomeTemplate/Checkout")),
       },
       {
@@ -31,7 +31,7 @@ const routes = [
       },
       {
         path: "booking",
-        element: lazy(() => import("../pages/HomeTemplate/Booking") )
+        element: lazy(() => import("../pages/HomeTemplate/Booking"))
       },
       {
         path: "hooks",
@@ -44,19 +44,29 @@ const routes = [
     ],
   },
   {
-    path: "admin",
-    element: lazy(() => import("../pages/AdminTemplate")),
-    nested: [
-      {
-        path: "dashboard",
-        element: lazy(() => import("../pages/AdminTemplate/DashBoard")),
-      },
-      {
-        path: "add-user",
-        element: lazy(() => import("../pages/AdminTemplate/AddUser")),
-      },
-    ],
-  },
+  path: "admin",
+  element: lazy(() => import("../pages/AdminTemplate")),
+  nested: [
+    {
+      path: "dashboard",
+      element: lazy(() => import("../pages/AdminTemplate/DashBoard")),
+    },
+    // Trang danh sách phim (khi vào /admin/films)
+    {
+      path: "films",
+      element: lazy(() => import("../pages/AdminTemplate/Films")),
+    },
+    // Trang thêm phim (khi vào /admin/films/addnew)
+    {
+      path: "films/addnew",
+      element: lazy(() => import("../pages/AdminTemplate/Films/addNew")),
+    },
+    {
+      path: "films/edit/:id",
+      element: lazy(() => import("../pages/AdminTemplate/Films/Edit")),
+    },
+  ],
+},
   {
     path: "auth",
     element: lazy(() => import("../pages/AdminTemplate/Auth")),
