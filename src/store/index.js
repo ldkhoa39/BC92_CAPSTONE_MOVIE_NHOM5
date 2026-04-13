@@ -9,6 +9,7 @@ import loginReducer from "../pages/HomeTemplate/Login/slice"
 import registerReducer from "../pages/HomeTemplate/Register/slice"
 // admin
 import filmsReducer from '../pages/AdminTemplate/Films/slice';
+import userReducer from "../pages/AdminTemplate/User/slice"
 
 const store = configureStore({
     reducer: {
@@ -21,6 +22,7 @@ const store = configureStore({
         loginReducer,
         registerReducer,
         filmsReducer,
+        userReducer,
     },
 });
 

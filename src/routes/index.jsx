@@ -67,7 +67,15 @@ const routes = [
     },
     {
       path: "user",
-      element: lazy(() => import("../pages/AdminTemplate/User")),
+      element: lazy(() => import("../pages/AdminTemplate/User/index")),
+    },
+    {
+      path: "user/add-user",
+      element: lazy(() => import("../pages/AdminTemplate/AddUser"))
+    },
+    {
+      path: "user/edit/:taiKhoan",
+      element: lazy(() => import("../pages/AdminTemplate/User/Edit")),
     },
     {
       path: "user/edit/:taiKhoan",

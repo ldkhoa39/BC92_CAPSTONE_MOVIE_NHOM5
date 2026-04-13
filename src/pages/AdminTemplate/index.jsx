@@ -63,7 +63,7 @@ export default function AdminTemplate() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/admin/add-user" className={navLinkClass} onClick={() => setIsSidebarOpen(false)}>
+              <NavLink to="/admin/user" className={navLinkClass} onClick={() => setIsSidebarOpen(false)}>
                 <i className="fa-solid fa-user-plus w-5"></i> Quản lý người dùng
               </NavLink>
             </li>
