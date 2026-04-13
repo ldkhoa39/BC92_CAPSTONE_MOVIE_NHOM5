@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import { fetchBanners, fetchData } from './slice';
 import Movie from './../_components/moive';
 import HomeCarousel from '../_components/HomeCarousel';
-import { sliderSettings } from '../_components/sliderConfig';
+import { sliderSettings } from '../_components/SliderConfig';
 
 
 // Nút bấm bên phải (Next)
