@@ -1,17 +1,51 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import {bookTicket, clearBooking} from "../../Checkout/slice";
 
 export default function TicketInfo() {
-
   const { danhSachGheDangDat } = useSelector((state) => state.checkoutReducer);
+  const dispatch = useDispatch();
+  
+  // Lấy mã lịch chiếu từ trên thanh URL xuống
+  const { maLichChieu } = useParams();
 
+  // Tính tổng tiền
   const total = danhSachGheDangDat.reduce((sum, ghe) => {
     return sum + ghe.giaVe;
   }, 0);
 
+  // Hàm xử lý khi bấm nút Thanh toán
+  const handleCheckout = () => {
+    // 1. Chế biến mảng ghế đang chọn thành đúng chuẩn API yêu cầu (chỉ lấy maGhe và giaVe)
+    const danhSachVeApi = danhSachGheDangDat.map((ghe) => ({
+      maGhe: ghe.maGhe,
+      giaVe: ghe.giaVe,
+    }));
+
+    // 2. Đóng gói dữ liệu
+    const bookingInfo = {
+      maLichChieu: Number(maLichChieu), // Đảm bảo nó là số
+      danhSachVe: danhSachVeApi,
+    };
+
+    // 3. Dispatch action đặt vé và đợi kết quả
+    dispatch(bookTicket(bookingInfo))
+      .unwrap()
+      .then(() => {
+        // Nếu API báo đặt thành công, tiến hành dọn dẹp mảng ghế đang chọn cho sạch sẽ
+        dispatch(clearBooking());
+      })
+      .catch((error) => {
+        // Nếu có lỗi (ví dụ: mất mạng, hoặc token sai) thì báo lên
+        console.log("Lỗi đặt vé: ", error);
+        alert(error || "Có lỗi xảy ra khi đặt vé!");
+      });
+  };
+
   return (
     <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl text-black shadow-2xl relative overflow-hidden">
-      {/* Hiệu ứng đường răng cưa giả lập vé xem phim (chỉ hiện trên desktop) */}
+      {/* Hiệu ứng đường răng cưa giả lập vé xem phim */}
       <div className="hidden md:block absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-zinc-950 rounded-full"></div>
       <div className="hidden md:block absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-zinc-950 rounded-full"></div>
 
@@ -48,7 +82,7 @@ export default function TicketInfo() {
         </div>
       </div>
 
-      {/* 3. THÔNG TIN BỔ SUNG (Nên có cho chuyên nghiệp) */}
+      {/* 3. THÔNG TIN BỔ SUNG */}
       <div className="py-4 space-y-2">
         <div className="flex justify-between text-xs">
           <span className="text-zinc-500">Hình thức:</span>
@@ -63,6 +97,7 @@ export default function TicketInfo() {
       {/* 4. NÚT THANH TOÁN */}
       <button 
         disabled={danhSachGheDangDat.length === 0}
+        onClick={handleCheckout} 
         className="w-full bg-red-600 hover:bg-zinc-900 disabled:bg-zinc-200 disabled:text-zinc-400 text-white py-4 rounded-xl mt-2 font-black transition-all duration-300 shadow-lg shadow-red-600/20 uppercase tracking-wider active:scale-95"
       >
         Thanh toán ngay

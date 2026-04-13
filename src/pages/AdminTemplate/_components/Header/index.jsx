@@ -5,14 +5,15 @@ export default function AdminHeader() {
   const navigate = useNavigate();
   
   // Lấy thông tin user (Ưu tiên lấy từ localStorage giống logic cũ của bạn)
-  const userAdmin = JSON.parse(localStorage.getItem("USER_ADMIN"));
+  const userAdmin = JSON.parse(localStorage.getItem("USER_ADMIN")) || 
+                    JSON.parse(localStorage.getItem("USER_LOGIN"));
 
   const handleLogout = () => {
-    if (window.confirm("Khoa ơi, bạn có chắc muốn đăng xuất không?")) {
+    if (window.confirm("Bạn có chắc muốn đăng xuất không?")) {
+      // Xóa cả 2
       localStorage.removeItem("USER_ADMIN");
-      // Thay vì reload, mình navigate về auth để trải nghiệm mượt hơn
+      localStorage.removeItem("USER_LOGIN");
       navigate("/auth");
-      // Nếu project dùng Redux, hãy dispatch action clear data ở đây
     }
   };
 

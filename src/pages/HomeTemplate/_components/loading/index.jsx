@@ -1,24 +1,26 @@
-import React from 'react';
-
-export default function SkeletonMovie() {
+export default function Loading() {
   return (
-    <div className="bg-zinc-900/50 rounded-2xl overflow-hidden shadow-lg animate-pulse border border-zinc-800">
-      {/* Giả lập Poster phim */}
-      <div className="h-[400px] bg-zinc-800"></div>
+    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-zinc-950">
       
-      <div className="p-5 space-y-4">
-        {/* Giả lập tên phim */}
-        <div className="h-6 bg-zinc-700 rounded w-3/4"></div>
+      {/* Spinner */}
+      <div className="relative">
+        <div className="w-16 h-16 border-4 border-zinc-800 rounded-full"></div>
         
-        {/* Giả lập thông tin phụ */}
-        <div className="space-y-2">
-          <div className="h-4 bg-zinc-800 rounded w-full"></div>
-          <div className="h-4 bg-zinc-800 rounded w-5/6"></div>
-        </div>
-        
-        {/* Giả lập nút bấm */}
-        <div className="h-12 bg-zinc-800 rounded-xl w-full mt-4"></div>
+        <div className="absolute inset-0 w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
       </div>
+
+      {/* Text */}
+      <p className="mt-6 text-zinc-400 text-sm tracking-widest uppercase animate-pulse">
+        Loading cinema experience...
+      </p>
+
+      {/* Dots */}
+      <div className="mt-3 flex gap-1">
+        <span className="w-2 h-2 bg-red-600 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+        <span className="w-2 h-2 bg-red-600 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+        <span className="w-2 h-2 bg-red-600 rounded-full animate-bounce"></span>
+      </div>
+
     </div>
   );
 }

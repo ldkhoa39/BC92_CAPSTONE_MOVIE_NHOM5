@@ -5,6 +5,7 @@ import { fetchRoomDetail } from './slice';
 import SeatMap from './../_components/SeatMap';
 import TicketInfo from './../_components/TicketInfo';
 import SeatLegend from '../_components/SeatLegend';
+import Loading from '../_components/loading';
 
 export default function Checkout() {
   const { maLichChieu } = useParams();
@@ -15,7 +16,10 @@ export default function Checkout() {
     dispatch(fetchRoomDetail(maLichChieu));
   }, [maLichChieu]);
 
-  if (loading) return <div className="text-white text-center pt-20">Đang tải phòng vé...</div>;
+  // if (loading) return <div className="text-white text-center pt-20">Đang tải phòng vé...</div>;
+  if (loading){
+    return <Loading/>;
+  }
 
   return (
     <div className="min-h-screen bg-zinc-950 pt-20 md:pt-28 pb-10 text-white selection:bg-red-600/30">

@@ -1,11 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { logOut } from '../../Login/slice';
 
 export default function Header() {
 
-  // State điều khiển đóng/mở menu trên mobile
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  
+  // Lấy state từ loginReducer
+  const { userLogin } = useSelector((state) => state.loginReducer);
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    setIsMenuOpen(false);
+  };
 
   // Style cho các link điều hướng khi Active
   const navLinkClass = ({ isActive }) =>
@@ -24,7 +34,7 @@ export default function Header() {
           </span>
         </NavLink>
 
-        {/* Nút Menu cho Mobile - Chuyển breakpoint sang lg */}
+        {/* Nút Menu cho Mobile */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           type="button"
@@ -42,7 +52,7 @@ export default function Header() {
           )}
         </button>
 
-        {/* MENU ITEMS - Chuyển md thành lg để có thêm không gian */}
+        {/* MENU ITEMS */}
         <div className={`${isMenuOpen ? "block" : "hidden"} w-full lg:block lg:w-auto transition-all duration-300`} id="navbar-default">
           <ul className="font-medium flex flex-col p-4 lg:p-0 mt-4 border border-zinc-800 rounded-2xl bg-zinc-900 lg:flex-row lg:space-x-6 xl:space-x-8 lg:mt-0 lg:border-0 lg:bg-transparent items-center">
             <li>
@@ -55,27 +65,48 @@ export default function Header() {
               <NavLink to="/booking" className={navLinkClass} onClick={() => setIsMenuOpen(false)}>Đặt vé</NavLink>
             </li>
             
-            {/* Vạch ngăn cách - ẩn trên mobile và tablet */}
             <li className="hidden lg:block w-[1px] h-5 bg-zinc-700 mx-2"></li>
             
-            {/* Cụm nút bấm */}
-            <li className="flex flex-col lg:flex-row gap-3 w-full lg:w-auto mt-4 lg:mt-0">
-              <NavLink 
-                to="/login" 
-                onClick={() => setIsMenuOpen(false)}
-                className="text-white bg-zinc-800 lg:bg-transparent border border-zinc-700 lg:border-none hover:text-red-500 font-bold rounded-xl text-xs xl:text-sm px-4 py-2.5 text-center transition-all"
-              >
-                ĐĂNG NHẬP
-              </NavLink>
+            {/* Cụm nút bấm: Xử lý hiển thị theo trạng thái đăng nhập */}
+            <li className="flex flex-col lg:flex-row gap-3 w-full lg:w-auto mt-4 lg:mt-0 items-center">
+              {userLogin ? (
+                // Trường hợp ĐÃ ĐĂNG NHẬP
+                <div className="flex items-center gap-4">
+                  <div className="flex flex-col items-end">
+                    <span className="text-[10px] text-zinc-500 uppercase font-black tracking-tighter">Thành viên</span>
+                    <span className="text-white font-bold text-sm">
+                      Xin chào, <span className="text-red-500">{userLogin.hoTen}</span>
+                    </span>
+                  </div>
+                  <button 
+                    onClick={handleLogout}
+                    className="text-white bg-zinc-800 hover:bg-red-600 border border-zinc-700 hover:border-red-600 font-bold rounded-xl text-xs px-4 py-2 text-center transition-all active:scale-95"
+                  >
+                    ĐĂNG XUẤT
+                  </button>
+                </div>
+              ) : (
+                // Trường hợp CHƯA ĐĂNG NHẬP
+                <>
+                  <NavLink 
+                    to="/login" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-white bg-red-600 hover:bg-white hover:text-red-600 font-bold rounded-xl text-xs xl:text-sm px-5 py-2.5 text-center transition-all shadow-lg shadow-red-600/20"
+                  >
+                    ĐĂNG NHẬP
+                  </NavLink>
 
-              <NavLink 
-                to="/register" 
-                onClick={() => setIsMenuOpen(false)}
-                className="text-white bg-red-600 hover:bg-white hover:text-red-600 font-bold rounded-xl text-xs xl:text-sm px-5 py-2.5 text-center transition-all shadow-lg shadow-red-600/20"
-              >
-                ĐĂNG KÝ
-              </NavLink>
+                  <NavLink 
+                    to="/register" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-white bg-red-600 hover:bg-white hover:text-red-600 font-bold rounded-xl text-xs xl:text-sm px-5 py-2.5 text-center transition-all shadow-lg shadow-red-600/20"
+                  >
+                    ĐĂNG KÝ
+                  </NavLink>
+                </>
+              )}
 
+              {/* Luôn hiển thị nút Admin */}
               <NavLink 
                 to="/admin" 
                 onClick={() => setIsMenuOpen(false)}

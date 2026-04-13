@@ -31,7 +31,19 @@ export default function Login() {
     event.preventDefault();
     dispatch(fetchLogin(user))
       .unwrap()
-      .then(() => navigate("/")) 
+      .then((result) => {
+        // 1. Lưu vào USER_LOGIN (cho phía User dùng)
+        localStorage.setItem("USER_LOGIN", JSON.stringify(result));
+
+        // 2. Kiểm tra nếu là Admin
+        if (result.maLoaiNguoiDung === "QuanTri") {
+          // Lưu thêm vào USER_ADMIN để trang AdminHeader nhận được dữ liệu
+          localStorage.setItem("USER_ADMIN", JSON.stringify(result));
+          navigate("/admin/user"); // Điều hướng thẳng vào trang quản lý
+        } else {
+          navigate("/");
+        }
+      })
       .catch((err) => console.log(err));
   };
 
