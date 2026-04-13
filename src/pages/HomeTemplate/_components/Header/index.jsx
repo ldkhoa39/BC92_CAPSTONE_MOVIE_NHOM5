@@ -108,7 +108,7 @@ export default function Header() {
 
               {/* Luôn hiển thị nút Admin */}
               <NavLink 
-                to="/admin" 
+                to="/auth" 
                 onClick={() => setIsMenuOpen(false)}
                 className="text-white bg-amber-600 hover:bg-amber-700 font-bold rounded-xl text-xs xl:text-sm px-5 py-2.5 text-center transition-all"
               >

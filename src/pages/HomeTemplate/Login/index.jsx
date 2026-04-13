@@ -28,24 +28,27 @@ export default function Login() {
   };
 
   const handleLogin = (event) => {
-    event.preventDefault();
-    dispatch(fetchLogin(user))
-      .unwrap()
-      .then((result) => {
-        // 1. Lưu vào USER_LOGIN (cho phía User dùng)
-        localStorage.setItem("USER_LOGIN", JSON.stringify(result));
+  event.preventDefault();
+  dispatch(fetchLogin(user))
+    .unwrap()
+    .then((result) => {
+      // 1. Thông báo cho người dùng (tùy chọn)
+      alert("Chào mừng " + result.hoTen + " đã quay trở lại!");
 
-        // 2. Kiểm tra nếu là Admin
-        if (result.maLoaiNguoiDung === "QuanTri") {
-          // Lưu thêm vào USER_ADMIN để trang AdminHeader nhận được dữ liệu
-          localStorage.setItem("USER_ADMIN", JSON.stringify(result));
-          navigate("/admin/user"); // Điều hướng thẳng vào trang quản lý
-        } else {
-          navigate("/");
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+      // 2. Kiểm tra mã loại người dùng để điều hướng đúng trang
+      if (result.maLoaiNguoiDung === "QuanTri") {
+        // Nếu là Admin, đẩy thẳng vào Dashboard
+        navigate("/admin/dashboard");
+      } else {
+        // Nếu là khách hàng bình thường, đẩy ra trang chủ
+        navigate("/");
+      }
+    })
+    .catch((err) => {
+      // Log lỗi để dễ debug nếu đăng nhập thất bại
+      console.error("Lỗi đăng nhập:", err);
+    });
+};
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 relative overflow-hidden">
