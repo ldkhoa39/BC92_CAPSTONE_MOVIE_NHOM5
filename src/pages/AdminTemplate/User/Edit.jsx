@@ -38,7 +38,7 @@ export default function EditUser() {
           matKhau: data.matKhau,
           hoTen: data.hoTen,
           email: data.email,
-          soDT: data.soDT, // Chữ T viết hoa theo đúng chuẩn API
+          soDT: data.soDT,
           maLoaiNguoiDung: data.maLoaiNguoiDung,
           maNhom: data.maNhom,
         });
@@ -92,7 +92,7 @@ export default function EditUser() {
     <div className="p-4 md:p-6 min-h-screen flex flex-col bg-zinc-950 text-white animate-fadeIn">
       <div className="flex-1 bg-zinc-900/50 border border-zinc-800 rounded-2xl p-5 md:p-8 shadow-2xl max-w-3xl mx-auto w-full">
         
-        {/* Header Section: Responsive linh hoạt */}
+        {/* Header Section*/}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
             <h2 className="text-2xl md:text-3xl font-black uppercase italic text-white">
@@ -111,7 +111,7 @@ export default function EditUser() {
         {/* Form: grid-cols-1 cho mobile và grid-cols-2 cho tablet trở lên */}
         <form onSubmit={handleUpdate} className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
           
-          {/* Tài khoản - Readonly */}
+          {/* Tài khoản*/}
           <div className="flex flex-col gap-2">
             <label className="text-[10px] md:text-xs font-black uppercase text-zinc-400 tracking-wider px-1">
               Tài khoản (Không thể sửa)

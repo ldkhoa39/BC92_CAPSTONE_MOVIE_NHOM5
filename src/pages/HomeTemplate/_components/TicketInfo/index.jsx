@@ -17,19 +17,19 @@ export default function TicketInfo() {
 
   // Hàm xử lý khi bấm nút Thanh toán
   const handleCheckout = () => {
-    // 1. Chế biến mảng ghế đang chọn thành đúng chuẩn API yêu cầu (chỉ lấy maGhe và giaVe)
+    // Build mảng ghế đang chọn đúng chuẩn API yêu cầu (chỉ lấy maGhe và giaVe)
     const danhSachVeApi = danhSachGheDangDat.map((ghe) => ({
       maGhe: ghe.maGhe,
       giaVe: ghe.giaVe,
     }));
 
-    // 2. Đóng gói dữ liệu
+    // Đóng gói dữ liệu
     const bookingInfo = {
-      maLichChieu: Number(maLichChieu), // Đảm bảo nó là số
+      maLichChieu: Number(maLichChieu), // Luôn là số
       danhSachVe: danhSachVeApi,
     };
 
-    // 3. Dispatch action đặt vé và đợi kết quả
+    // Dispatch action đặt vé và đợi kết quả
     dispatch(bookTicket(bookingInfo))
       .unwrap()
       .then(() => {
@@ -45,11 +45,11 @@ export default function TicketInfo() {
 
   return (
     <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl text-black shadow-2xl relative overflow-hidden">
-      {/* Hiệu ứng đường răng cưa giả lập vé xem phim */}
+      {/* Hiệu ứng đường răng cưa*/}
       <div className="hidden md:block absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-zinc-950 rounded-full"></div>
       <div className="hidden md:block absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-zinc-950 rounded-full"></div>
 
-      {/* 1. TỔNG TIỀN */}
+      {/*TỔNG TIỀN */}
       <div className="text-center md:text-left border-b border-dashed border-zinc-300 pb-4">
         <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Tổng tiền thanh toán</p>
         <h2 className="text-3xl md:text-4xl font-black text-green-600">
@@ -57,7 +57,7 @@ export default function TicketInfo() {
         </h2>
       </div>
 
-      {/* 2. CHI TIẾT GHẾ */}
+      {/*CHI TIẾT GHẾ */}
       <div className="py-4 border-b border-dashed border-zinc-300">
         <div className="flex justify-between items-center mb-2">
           <p className="text-xs font-bold text-zinc-500 uppercase">Ghế đang chọn:</p>
@@ -82,7 +82,7 @@ export default function TicketInfo() {
         </div>
       </div>
 
-      {/* 3. THÔNG TIN BỔ SUNG */}
+      {/*THÔNG TIN BỔ SUNG */}
       <div className="py-4 space-y-2">
         <div className="flex justify-between text-xs">
           <span className="text-zinc-500">Hình thức:</span>
@@ -94,7 +94,7 @@ export default function TicketInfo() {
         </div>
       </div>
       
-      {/* 4. NÚT THANH TOÁN */}
+      {/*NÚT THANH TOÁN */}
       <button 
         disabled={danhSachGheDangDat.length === 0}
         onClick={handleCheckout} 

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
-export default function SearchBar({ onSearch }) { // Nhận hàm onSearch từ cha
+export default function SearchBar({ onSearch }) { 
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      onSearch(searchTerm); // Gửi từ khóa về cho cha
-    }, 300); // 300ms là đủ nhanh
+      onSearch(searchTerm); 
+    }, 300); 
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);

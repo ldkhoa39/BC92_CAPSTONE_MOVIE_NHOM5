@@ -32,10 +32,10 @@ export default function Login() {
   dispatch(fetchLogin(user))
     .unwrap()
     .then((result) => {
-      // 1. Thông báo cho người dùng (tùy chọn)
+      // Thông báo cho người dùng (tùy chọn)
       alert("Chào mừng " + result.hoTen + " đã quay trở lại!");
 
-      // 2. Kiểm tra mã loại người dùng để điều hướng đúng trang
+      // Kiểm tra mã loại người dùng để điều hướng đúng trang
       if (result.maLoaiNguoiDung === "QuanTri") {
         // Nếu là Admin, đẩy thẳng vào Dashboard
         navigate("/admin/dashboard");

@@ -16,7 +16,6 @@ export default function Checkout() {
     dispatch(fetchRoomDetail(maLichChieu));
   }, [maLichChieu]);
 
-  // if (loading) return <div className="text-white text-center pt-20">Đang tải phòng vé...</div>;
   if (loading){
     return <Loading/>;
   }

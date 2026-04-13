@@ -29,7 +29,7 @@ export default function PageNotFound() {
           Oops! Mất kết nối tín hiệu...
         </h2>
         <p className="text-zinc-400 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
-          Có vẻ như suất chiếu bạn đang tìm kiếm đã bị hủy, hoặc cuộn phim này không tồn tại trong hệ thống rạp <span className="font-bold text-white italic">BC92<span className="text-red-600">MOVIE</span></span> của chúng tôi.
+          Có vẻ như thông tin bạn đang tìm kiếm đã bị hủy, hoặc không tồn tại trong hệ thống rạp <span className="font-bold text-white italic">BC92<span className="text-red-600">MOVIE</span></span> của chúng tôi.
         </p>
 
         {/* Cụm nút điều hướng */}

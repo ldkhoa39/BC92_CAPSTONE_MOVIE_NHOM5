@@ -14,7 +14,7 @@ export default function AddUser() {
     email: "",
     soDt: "",
     maNhom: "GP01",
-    maLoaiNguoiDung: "KhachHang", // Để mặc định là Khách Hàng
+    maLoaiNguoiDung: "KhachHang", // Mặc định là Khách Hàng
     hoTen: "",
   });
 
@@ -29,9 +29,6 @@ export default function AddUser() {
   const hanldAddUser = async (e) => {
     e.preventDefault();
     
-    // API yêu cầu soDT (chữ T viết hoa) cho một số endpoint, 
-    // nhưng với ThemNguoiDung thường là soDt. 
-    // Mình sẽ tạo payload chuẩn dựa trên state của bạn.
     const result = await dispatch(actAddUser(user));
 
     if (actAddUser.fulfilled.match(result)) {
@@ -40,12 +37,11 @@ export default function AddUser() {
   };
 
   return (
-    // Thay h-screen bằng min-h-screen để mobile không bị mất nội dung khi cuộn
     <div className="p-4 md:p-6 min-h-screen flex flex-col bg-zinc-950 text-white animate-fadeIn">
-      {/* Container: p-8 giảm xuống p-5 trên mobile cho đỡ chật */}
+      {/* Container */}
       <div className="flex-1 bg-zinc-900/50 border border-zinc-800 rounded-2xl p-5 md:p-8 shadow-2xl max-w-3xl mx-auto w-full">
         
-        {/* Header Section: Responsive linh hoạt */}
+        {/* Header Section*/}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
             <h2 className="text-2xl md:text-3xl font-black uppercase italic text-white">
@@ -102,14 +98,14 @@ export default function AddUser() {
                 <option value="KhachHang">Khách hàng</option>
                 <option value="QuanTri">Quản trị</option>
               </select>
-              {/* Icon mũi tên cho select (vì appearance-none đã ẩn mặc định) */}
+              {/* Icon mũi tên*/}
               <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-zinc-500">
                 <i className="fa-solid fa-chevron-down text-[10px]"></i>
               </div>
             </div>
           </div>
 
-          {/* Button Submit: Luôn chiếm full chiều ngang (col-span-1 hoặc col-span-2) */}
+          {/* Button Submit*/}
           <div className="md:col-span-2 mt-4">
             <button
               type="submit"

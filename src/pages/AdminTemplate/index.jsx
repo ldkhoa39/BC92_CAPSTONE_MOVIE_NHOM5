@@ -1,6 +1,6 @@
 import React, { useState } from 'react'; // Thêm useState
 import { useSelector } from 'react-redux';
-import { Outlet, Navigate, NavLink } from 'react-router-dom'; // Thêm NavLink
+import { Outlet, Navigate, NavLink } from 'react-router-dom';
 import AdminHeader from './_components/Header';
 import AdminFooter from './_components/Footer';
 

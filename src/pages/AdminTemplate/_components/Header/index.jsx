@@ -17,13 +17,11 @@ export default function AdminHeader() {
   const userAdmin = getAdminData();
 
   const handleLogout = () => {
-    if (window.confirm("Khoa ơi, bạn có chắc chắn muốn đăng xuất không?")) {
-      // 1. Xóa sạch dấu vết trong LocalStorage
+    if (window.confirm("bạn có chắc chắn muốn đăng xuất không?")) {
+      // Xóa sạch dấu vết trong LocalStorage
       localStorage.removeItem("USER_ADMIN");
       localStorage.removeItem("USER_LOGIN");
       
-      // 2. Nếu project của Khoa dùng Redux, hãy cân nhắc thêm lệnh reload 
-      // để xóa sạch State cũ, tránh trường hợp quay lại trang admin bằng nút Back của trình duyệt
       window.location.href = "/auth"; 
     }
   };

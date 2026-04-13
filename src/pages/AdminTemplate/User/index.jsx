@@ -8,7 +8,7 @@ export default function UserManager() {
   const dispatch = useDispatch();
   const { listUser, loading } = useSelector((state) => state.userReducer || { listUser: [] });
   
-  // 1. Tạo state để lưu từ khóa tìm kiếm
+  // Tạo state để lưu từ khóa tìm kiếm
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function UserManager() {
     }
   };
 
-  // 2. Logic lọc danh sách người dùng dựa trên keyword
+  // Logic lọc danh sách người dùng dựa trên keyword
   // Nó sẽ tự động tính toán lại mỗi khi keyword hoặc listUser thay đổi
   const filteredUsers = listUser?.filter((user) => {
     const searchLow = keyword.toLowerCase().trim();
@@ -33,7 +33,7 @@ export default function UserManager() {
 
   return (
     <div className="p-4 md:p-6 h-screen flex flex-col bg-zinc-950 text-white animate-fadeIn">
-      {/* Header: Luôn giữ cố định để SearchBar không bị reset */}
+      {/* Header*/}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 flex-shrink-0">
         <div>
           <h2 className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic text-white">
@@ -42,7 +42,7 @@ export default function UserManager() {
           <p className="text-zinc-500 text-sm">Quản lý tài khoản và phân quyền hệ thống</p>
         </div>
 
-        {/* Search Bar: Truyền hàm setKeyword vào đây */}
+        {/* Search Bar*/}
         <div className="w-full lg:flex-1 lg:max-w-md">
           <SearchBar onSearch={(val) => setKeyword(val)} />
         </div>
@@ -60,7 +60,7 @@ export default function UserManager() {
       <div className="flex-1 bg-zinc-900/50 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col mt-4 md:mt-0">
         <div className="overflow-auto flex-1 custom-scrollbar">
           
-          {/* loading ở đây chỉ chạy khi gọi API fetch danh sách gốc lần đầu */}
+          {/* loading*/}
           {loading ? (
             <div className="flex flex-col items-center justify-center h-full py-20 space-y-4">
               <div className="w-10 h-10 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
@@ -68,7 +68,7 @@ export default function UserManager() {
             </div>
           ) : (
             <>
-              {/* 1. Desktop Table: Sử dụng filteredUsers thay vì listUser */}
+              {/*Desktop Table*/}
               <table className="hidden lg:table w-full text-left border-collapse table-fixed">
                 <thead className="sticky top-0 z-10 bg-zinc-800 shadow-md">
                   <tr className="border-b border-zinc-700 whitespace-nowrap">
@@ -117,7 +117,7 @@ export default function UserManager() {
                 </tbody>
               </table>
 
-              {/* 2. Mobile & Tablet Card Layout: Sử dụng filteredUsers */}
+              {/*Mobile & Tablet Card Layout*/}
               <div className="lg:hidden grid grid-cols-1 divide-y divide-zinc-800">
                 {filteredUsers?.map((user) => (
                   <div key={user.taiKhoan} className="p-5 flex flex-col gap-4">

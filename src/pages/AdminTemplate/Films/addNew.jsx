@@ -99,7 +99,7 @@ export default function AddNew() {
 
         <div>
           <label className="block mb-2 text-sm font-bold text-zinc-400">Ngày khởi chiếu</label>
-          {/* Cần bọc ConfigProvider theme dark ở ngoài app để AntD DatePicker màu tối */}
+          {/* Cần bọc ConfigProvider theme dark*/}
           <DatePicker format="DD/MM/YYYY" className="w-full h-12 bg-zinc-950 border-zinc-800 hover:border-red-500" onChange={handleDateChange} />
         </div>
 
