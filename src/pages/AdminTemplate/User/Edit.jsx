@@ -7,6 +7,9 @@ import api from "../../../services/api";
 export default function EditUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userAdmin = localStorage.getItem("USER_ADMIN");
+  const token = userAdmin ? JSON.parse(userAdmin).accessToken : null;
   
   // Mình lấy cả id và taiKhoan đề phòng bạn chưa kịp sửa file route
   const { taiKhoan, id } = useParams();
@@ -28,7 +31,13 @@ export default function EditUser() {
 
       try {
         const result = await api.post(
-          `QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${accountToEdit}`
+          `QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${accountToEdit}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = result.data.content;
         

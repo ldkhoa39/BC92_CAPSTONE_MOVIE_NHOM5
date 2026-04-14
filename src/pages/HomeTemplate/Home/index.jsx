@@ -104,7 +104,7 @@ export default function Home() {
         {/* SIÊU PHẨM HOT */}
         <section className="animate-fadeIn">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-6 md:mb-8">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tighter border-l-[6px] md:border-l-8 border-white pl-3 md:pl-4 leading-none text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tighter border-l-[6px] md:border-l-8 border-zinc-700 pl-3 md:pl-4 leading-none">
               Siêu Phẩm HOT
             </h2>
           </div>

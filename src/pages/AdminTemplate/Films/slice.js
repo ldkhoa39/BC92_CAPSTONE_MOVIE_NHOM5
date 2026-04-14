@@ -17,16 +17,30 @@ export const fetchListMovieAdmin = createAsyncThunk(
 
 // Thêm phim
 export const addMovieUpload = createAsyncThunk(
-    'films/addMovieUpload',
-    async (formData, { rejectWithValue }) => {
-        try {
-            // 
-            const res = await api.post('/QuanLyPhim/ThemPhimUploadHinh', formData);
-            return res.data.content;
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.content || "Thêm phim thất bại!");
+  "films/addMovieUpload",
+  async (formData, { rejectWithValue }) => {
+    try {
+      // Lấy token giống update
+      const userAdmin = localStorage.getItem("USER_ADMIN");
+      const token = userAdmin ? JSON.parse(userAdmin).accessToken : null;
+
+      const res = await api.post(
+        "/QuanLyPhim/ThemPhimUploadHinh",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
+      );
+
+      return res.data.content;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.content || "Thêm phim thất bại!"
+      );
     }
+  }
 );
 
 // Sửa phim
@@ -67,9 +81,7 @@ export const deleteMovie = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-
-      // Sau khi xoá thành công trên Server tự lọc list dưới client để giao diện cập nhật ngay lập tức
-      alert("Xoá phim thành công!");
+      
       return maPhim; 
     } catch (error) {
       return rejectWithValue(error.response?.data?.content || "Xoá thất bại!");

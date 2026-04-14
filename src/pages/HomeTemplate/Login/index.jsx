@@ -6,7 +6,7 @@ import { fetchLogin } from "./slice";
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, loading } = useSelector((state) => state.authReducer);
+  const { error, loading } = useSelector((state) => state.loginReducer);
 
   const [user, setUser] = useState({ taiKhoan: "", matKhau: "" });
   const [erros, setErros] = useState({ taiKhoan: "", matKhau: "" });
@@ -74,7 +74,8 @@ export default function Login() {
 
         {error && (
           <div className="mb-6 p-4 bg-red-600/10 border-l-4 border-red-600 text-red-500 text-xs md:text-sm rounded-r-xl animate-shake">
-            <i className="fa-solid fa-circle-exclamation mr-2"></i> {error}
+            <i className="fa-solid fa-circle-exclamation mr-2"></i> 
+            {error}
           </div>
         )}
 
